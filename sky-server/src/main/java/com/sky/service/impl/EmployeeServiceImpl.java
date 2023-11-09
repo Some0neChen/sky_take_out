@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
+import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
@@ -66,6 +67,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper,Employee> im
 
     /*新增员工*/
     public void save(EmployeeDTO employeeDTO) {
+        System.out.println("线程(save)ID："+Thread.currentThread().getName());
+
         //对象属性拷贝
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);
@@ -76,8 +79,9 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper,Employee> im
         employee.setUpdateTime(LocalDateTime.now());
 
         //TODO:将来改为当前登录管理者
-        employee.setCreateUser(10L);
-        employee.setUpdateUser(10L);
+
+        employee.setCreateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
     }
