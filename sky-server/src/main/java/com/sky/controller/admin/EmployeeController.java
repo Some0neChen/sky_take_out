@@ -94,4 +94,16 @@ public class EmployeeController {
     public Result startOrStop(@PathVariable(value = "status") Integer status,Long id){
         return employeeServiceImpl.startOrStop(status,id);
     }
+
+    @ApiOperation("根据id查询员工")
+    @GetMapping("/{id}")
+    public Result getEmpInfo(@PathVariable Long id){
+        return employeeServiceImpl.getEmpInfo(id);
+    }
+
+    @ApiOperation("编辑员工信息")
+    @PutMapping()
+    public Result updateEmp(@RequestBody Employee employee){
+        return employeeServiceImpl.updateEmp(employee);
+    }
 }

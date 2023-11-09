@@ -102,11 +102,30 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper,Employee> im
         return result;
     }
 
+    /*启用禁用员工权限*/
     public Result startOrStop(Integer status, Long id) {
         Employee employee = new Employee();
         employee.setStatus(status);
         employee.setId(id);
         employeeMapper.updateById(employee);
         return Result.success(null);
+    }
+
+    /*根据id查询员工*/
+    public Result getEmpInfo(Long id) {
+        Employee employee = employeeMapper.selectById(id);
+        //返回前端的密码加密保证安全
+        employee.setPassword("******");
+        return Result.success(employee);
+    }
+
+    //编辑员工信息
+    public Result updateEmp(Employee employee) {
+        //更新修改时间
+        employee.setUpdateTime(LocalDateTime.now());
+        //更新修改人信息
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        employeeMapper.updateById(employee);
+        return Result.success();
     }
 }
