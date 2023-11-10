@@ -4,7 +4,6 @@ import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
-import com.sky.service.CategoryService;
 import com.sky.service.impl.CategoryServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -36,9 +35,27 @@ public class CategoryController {
         return service.openAndClose(status,id);
     }
 
+    @ApiOperation("根据id删除分类")
+    @DeleteMapping
+    public Result deleteCategory(Long id){
+        return service.deleteCategory(id);
+    }
+
     @ApiOperation("新增分类")
     @PostMapping
     public Result save(@RequestBody CategoryDTO categoryDTO){
         return service.save(categoryDTO);
+    }
+
+    @ApiOperation("修改分类")
+    @PutMapping
+    public Result update(@RequestBody CategoryDTO categoryDTO){
+        return service.update(categoryDTO);
+    }
+
+    @ApiOperation("根据类型查询分类")
+    @GetMapping("list")
+    public Result listByType(Integer type){
+        return service.listByType(type);
     }
 }

@@ -1,5 +1,6 @@
 package com.sky.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -10,12 +11,14 @@ import com.sky.entity.Category;
 import com.sky.mapper.CategoryMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
+import com.sky.service.CategoryService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Some0neChen
@@ -25,7 +28,9 @@ import java.time.LocalDateTime;
 @Service
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> {
     @Autowired
-    CategoryMapper mapper;
+    private CategoryMapper mapper;
+    @Autowired
+    private CategoryServiceImpl service;
 
     //分页查询
     public PageResult getPage(CategoryPageQueryDTO pageQueryDTO) {
@@ -51,12 +56,35 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> {
         //对象属性拷贝
         Category category = new Category();
         BeanUtils.copyProperties(categoryDTO,category);
+
         category.setStatus(0);
         category.setCreateTime(LocalDateTime.now());
         category.setUpdateTime(LocalDateTime.now());
         category.setCreateUser(BaseContext.getCurrentId());
         category.setUpdateUser(BaseContext.getCurrentId());
-        mapper.insert(category);
+        this.save(category);
+        return Result.success();
+    }
+
+    /*修改分类*/
+    public Result update(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        BeanUtils.copyProperties(categoryDTO,category);
+        mapper.updateById(category);
+        return Result.success();
+    }
+
+    /*根据类型查询分类*/
+    public Result listByType(Integer type) {
+        LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Category::getType,type);
+        List<Category> categories = mapper.selectList(wrapper);
+        return Result.success(categories);
+    }
+
+    /*根据id删除分类*/
+    public Result deleteCategory(Long id) {
+        mapper.deleteById(id);
         return Result.success();
     }
 }
