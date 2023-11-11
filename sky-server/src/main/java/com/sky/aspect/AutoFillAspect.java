@@ -31,7 +31,9 @@ import java.time.LocalDateTime;
 @Slf4j
 public class AutoFillAspect {
     /*切入点*/
-    @Pointcut("execution(* com.sky.service.impl.*.*(..)) && @annotation(com.sky.annotation.AutoFill)")
+    @Pointcut(value = "(execution(* com.sky.service.impl.*.*(..)) " +
+            "|| execution(* com.sky.mapper.*.*(..))) " +
+            "&& @annotation(com.sky.annotation.AutoFill)")
     public void autoFillPointCut() {
     }
 
