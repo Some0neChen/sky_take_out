@@ -26,7 +26,7 @@ import java.util.List;
  * creats 25-05-2023/11/10
  */
 @Service
-public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> {
+public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService{
     @Autowired
     private CategoryMapper mapper;
     @Autowired
@@ -65,6 +65,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> {
         this.save(category);
         return Result.success();
     }
+
 
     /*修改分类*/
     public Result update(CategoryDTO categoryDTO) {
