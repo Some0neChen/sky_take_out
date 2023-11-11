@@ -13,6 +13,7 @@ import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,9 +35,11 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
     /*分页查询*/
     public PageResult getPage(DishPageQueryDTO dto) {
-        IPage<Dish> page = new Page<>(dto.getPage(), dto.getPageSize());
+        IPage<DishVO> page = new Page<>(dto.getPage(), dto.getPageSize());
         mapper.selectListPage(page, dto);
-        System.out.println("page = " + page.getRecords());
+        List<DishVO> records = page.getRecords();
+        records.removeIf(e -> e.getId() == null);
+        System.out.println("records = " + records);
         return new PageResult(page.getTotal(), page.getRecords());
     }
 

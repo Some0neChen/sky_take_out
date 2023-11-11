@@ -2,19 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.sky.mapper.DishMapper">
-    <select id="selectListPage" resultType="com.sky.entity.Dish">
-        select * from dish
+    
+    <resultMap id="selectPageInDish" type="com.sky.vo.DishVO">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="price" column="price"/>
+        <result property="image" column="image"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="categoryName" column="category_name"/>
+    </resultMap>
+    
+    <select id="selectListPage" resultMap="selectPageInDish">
+        select dish.id, dish.name, dish.category_id, dish.price, dish.image,
+        dish.description, dish.status, dish.update_time,
+        category.name as 'category_name'
+        from dish
+        right join category on dish.category_id = category.id
         <where>
-            <if test="dto.name != null and dto.length()>0">
-                and name like concat('%',#{dto.name},'%')
+            <if test="dto.name != null and dto.name.length()>0">
+                and dish.name like concat('%',#{dto.name},'%')
             </if>
             <if test="dto.status != null">
-                and status = #{dto.status}
+                and dish.status = #{dto.status}
             </if>
             <if test="dto.categoryId != null">
-                and category_id = #{dto.categoryId}
+                and dish.category_id = #{dto.categoryId}
             </if>
         </where>
+        order by dish.create_time
     </select>
 
     <!--获取自增主键-->
