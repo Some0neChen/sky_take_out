@@ -8,7 +8,9 @@ import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.entity.Dish;
 import com.sky.mapper.CategoryMapper;
+import com.sky.mapper.DishMapper;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.CategoryService;
@@ -29,8 +31,6 @@ import java.util.List;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService{
     @Autowired
     private CategoryMapper mapper;
-    @Autowired
-    private CategoryServiceImpl service;
 
     //分页查询
     public PageResult getPage(CategoryPageQueryDTO pageQueryDTO) {

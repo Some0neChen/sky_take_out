@@ -7,6 +7,9 @@ import com.sky.dto.DishDTO;
 import com.sky.entity.Dish;
 import com.sky.enumeration.OperationType;
 import com.sky.result.Result;
+import com.sky.vo.DishVO;
+
+import java.util.List;
 
 /**
  * @author Some0neChen
@@ -15,4 +18,16 @@ import com.sky.result.Result;
  */
 public interface DishService extends IService<Dish> {
     void saveDish(DishDTO dto);
+
+    Result useOrStop(Dish dish,Integer status);
+
+    Result delete(List<Long> ids);
+
+    Result<DishVO> selectOneDish(Integer id);
+
+    Result updateDish(DishDTO dishDTO);
+
+    public void updateSetTime(Dish dish);
+
+    Result<List<Dish>> getDishesByCategoryId(Long categoryId);
 }

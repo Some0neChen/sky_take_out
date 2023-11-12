@@ -10,6 +10,8 @@ import com.sky.vo.DishVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author Some0neChen
  * @version 1.0
@@ -21,4 +23,9 @@ public interface DishMapper extends BaseMapper<Dish> {
 
     @AutoFill(value = OperationType.INSERT)
     void saveDish(@Param("dish") Dish dish);
+
+    int selectOnShopCount(@Param("ids") List<Long> ids);
+
+    DishVO selectOneDish(@Param("id") Integer id);
+
 }
