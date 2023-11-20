@@ -15,4 +15,6 @@ import java.util.List;
 @Mapper
 public interface SetmealDishMapper extends BaseMapper<SetmealDish> {
     int selectCountOnSetmeal(@Param("ids")List<Long> ids);
+
+    void removeBatchBySetmealId(@Param("ids") List<Long> ids);
 }

@@ -11,3 +11,8 @@ sky:
     access-key-id: LTAI5t7j95VZpuWXAYVSYzsp
     access-key-secret: wvgCAXfTS1okMJ1zN4bSmWB0ci8ONU
     bucket-name: some0nechen-sky-take-out
+  redis:
+    host: 192.168.119.88
+    port: 6379
+    password: cjd20001223
+    database: 0
