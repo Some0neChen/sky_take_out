@@ -3,7 +3,9 @@ package com.sky.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.sky.entity.SetmealDish;
 import com.sky.mapper.SetmealDishMapper;
+import com.sky.result.Result;
 import com.sky.service.SetmealDishService;
+import com.sky.vo.DishItemVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,5 +27,11 @@ public class SetmealDishServiceImpl extends ServiceImpl<SetmealDishMapper, Setme
     @Override
     public void removeBatchBySetmealId(List<Long> ids) {
         mapper.removeBatchBySetmealId(ids);
+    }
+
+    @Override
+    public Result<List<DishItemVO>> getDishItemVOByCategoryId(Integer id) {
+        List<DishItemVO> list = mapper.getDishItemVOBySetmealId(id);
+        return Result.success(list);
     }
 }

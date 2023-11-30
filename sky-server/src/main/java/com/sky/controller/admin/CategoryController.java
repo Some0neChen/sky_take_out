@@ -20,7 +20,7 @@ import java.util.List;
  * creats 27-05-2023/11/10
  */
 //分类相关接口
-@RestController
+@RestController(value = "adminCategoryController")
 @RequestMapping("/admin/category")
 @Slf4j
 public class CategoryController {

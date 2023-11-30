@@ -32,4 +32,7 @@ public interface SetmealService extends IService<Setmeal> {
     Result deleteSetmeal(List<Long> ids);
 
     Result updateSetmeal(SetmealDTO dto);
+
+    //用户端根据分类id查询套餐
+    Result<List<Setmeal>> getSetmealByCategoryId(Integer categoryId);
 }

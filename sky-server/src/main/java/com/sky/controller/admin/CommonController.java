@@ -22,7 +22,7 @@ import java.util.UUID;
  * @version 1.0
  * creats 55-17-2023/11/11
  */
-@RestController
+@RestController(value = "adminCommonController")
 @Slf4j
 @RequestMapping("/admin/common")
 @Api(tags = "通用接口，负责图片文件上传")

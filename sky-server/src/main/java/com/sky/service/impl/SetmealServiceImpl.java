@@ -139,4 +139,15 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
 
         return Result.success();
     }
+
+    /*
+    * 用户端根据分类id查询套餐
+    * */
+    @Override
+    public Result<List<Setmeal>> getSetmealByCategoryId(Integer categoryId) {
+        LambdaQueryWrapper<Setmeal> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Setmeal::getCategoryId,categoryId);
+        List<Setmeal> list = this.list(wrapper);
+        return Result.success(list);
+    }
 }

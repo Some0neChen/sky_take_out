@@ -52,7 +52,7 @@
     </select>
 
     <!--根据dishId查询口味及分类信息，在dish及flavor上实现一对多分表联查-->
-    <resultMap id="selectOneInDish" type="com.sky.vo.DishVO">
+    <resultMap id="selectDishWithFlavor" type="com.sky.vo.DishVO">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
         <result property="categoryId" column="category_id"/>
@@ -70,7 +70,7 @@
         </collection>
     </resultMap>
 
-    <select id="selectOneDish" resultMap="selectOneInDish">
+    <select id="selectOneDish" resultMap="selectDishWithFlavor">
         select dish.id,
                dish.name,
                dish.category_id,
@@ -88,6 +88,26 @@
                  left join sky_take_out.dish_flavor df on dish.id = df.dish_id
                  left join sky_take_out.category c on c.id = dish.category_id
         where dish.id = #{id}
+    </select>
+
+    <select id="selectDishVOByCategoryId" resultMap="selectDishWithFlavor">
+        select dish.id,
+               dish.name,
+               dish.category_id,
+               dish.price,
+               dish.image,
+               dish.description,
+               dish.status,
+               dish.update_time,
+               df.id         as fId,
+               df.dish_id,
+               df.name       as fName,
+               value,
+               c.create_user as category_name
+        from dish
+                 left join sky_take_out.dish_flavor df on dish.id = df.dish_id
+                 left join sky_take_out.category c on c.id = dish.category_id
+        where dish.category_id = #{CategoryId}
     </select>
 
 </mapper>

@@ -20,7 +20,7 @@ import java.util.List;
  * creats 33-01-2023/11/13
  */
 @Api(tags = "套餐相关接口")
-@RestController
+@RestController(value = "adminSetmealController")
 @Slf4j
 @RequestMapping("/admin/setmeal")
 public class SetmealController {

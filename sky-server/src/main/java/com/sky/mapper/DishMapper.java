@@ -28,4 +28,6 @@ public interface DishMapper extends BaseMapper<Dish> {
 
     DishVO selectOneDish(@Param("id") Integer id);
 
+    //用户端根据分类id查询菜品
+    List<DishVO> selectDishVOByCategoryId(@Param("CategoryId")Integer categoryId);
 }

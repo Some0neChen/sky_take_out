@@ -30,4 +30,9 @@ public interface DishService extends IService<Dish> {
     public void updateSetTime(Dish dish);
 
     Result<List<Dish>> getDishesByCategoryId(Long categoryId);
+
+    //用户端
+
+    //根据分类id查询菜品
+    Result<List<DishVO>> selectDishVOByCategoryId(Integer categoryId);
 }
