@@ -76,9 +76,8 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     }
 
     /*根据类型查询分类*/
-    public Result listByType(Integer type) {
+    public Result<List<Category>> listByType(Integer type) {
         LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Category::getType,type);
         List<Category> categories = mapper.selectList(wrapper);
         return Result.success(categories);
     }
