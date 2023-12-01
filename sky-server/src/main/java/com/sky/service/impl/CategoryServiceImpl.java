@@ -28,16 +28,16 @@ import java.util.List;
  * creats 25-05-2023/11/10
  */
 @Service
-public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService{
+public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Autowired
     private CategoryMapper mapper;
 
     //分页查询
     public PageResult getPage(CategoryPageQueryDTO pageQueryDTO) {
         IPage<Category> iPage = new Page<>(pageQueryDTO.getPage(), pageQueryDTO.getPageSize());
-        mapper.selectPageByName(iPage,pageQueryDTO.getName(),pageQueryDTO.getType());
+        mapper.selectPageByName(iPage, pageQueryDTO.getName(), pageQueryDTO.getType());
         System.out.println(iPage.getRecords());
-        return new PageResult(iPage.getTotal(),iPage.getRecords());
+        return new PageResult(iPage.getTotal(), iPage.getRecords());
     }
 
     //启用、禁用分类
@@ -55,7 +55,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         System.out.println(categoryDTO);
         //对象属性拷贝
         Category category = new Category();
-        BeanUtils.copyProperties(categoryDTO,category);
+        BeanUtils.copyProperties(categoryDTO, category);
 
         category.setStatus(0);
         category.setCreateTime(LocalDateTime.now());
@@ -70,7 +70,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     /*修改分类*/
     public Result update(CategoryDTO categoryDTO) {
         Category category = new Category();
-        BeanUtils.copyProperties(categoryDTO,category);
+        BeanUtils.copyProperties(categoryDTO, category);
         mapper.updateById(category);
         return Result.success();
     }
@@ -78,6 +78,7 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     /*根据类型查询分类*/
     public Result<List<Category>> listByType(Integer type) {
         LambdaQueryWrapper<Category> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(Category::getStatus, 1);
         List<Category> categories = mapper.selectList(wrapper);
         return Result.success(categories);
     }

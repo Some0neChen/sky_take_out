@@ -22,7 +22,7 @@
         select dish.name, setmeal_dish.copies, dish.image, dish.description
         from setmeal_dish
                  left join dish on setmeal_dish.dish_id = dish.id
-        where setmeal_dish.setmeal_id = #{SetmealId}
+        where setmeal_dish.setmeal_id = #{SetmealId} and dish.status = 1
     </select>
 
 </mapper>

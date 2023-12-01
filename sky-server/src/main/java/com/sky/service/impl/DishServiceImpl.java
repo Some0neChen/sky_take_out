@@ -56,6 +56,7 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
     public void saveDish(DishDTO dto) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dto, dish);
+        dish.setStatus(0);
         mapper.saveDish(dish);
 
         List<DishFlavor> flavors = dto.getFlavors();

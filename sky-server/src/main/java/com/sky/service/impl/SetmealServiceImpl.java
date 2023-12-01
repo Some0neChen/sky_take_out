@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.aspectj.bridge.Message;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -141,13 +142,15 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
     }
 
     /*
-    * 用户端根据分类id查询套餐
-    * */
+     * 用户端根据分类id查询套餐
+     * */
     @Override
-    public Result<List<Setmeal>> getSetmealByCategoryId(Integer categoryId) {
+    @Cacheable(cacheNames = "setmealCache", key = "#categoryId")
+    public List<Setmeal> getSetmealByCategoryId(Integer categoryId) {
         LambdaQueryWrapper<Setmeal> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Setmeal::getCategoryId,categoryId);
+        wrapper.eq(Setmeal::getCategoryId, categoryId);
+        wrapper.eq(Setmeal::getStatus, 1);
         List<Setmeal> list = this.list(wrapper);
-        return Result.success(list);
+        return list;
     }
 }
