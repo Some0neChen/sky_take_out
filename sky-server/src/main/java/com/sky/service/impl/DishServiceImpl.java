@@ -177,8 +177,8 @@ public class DishServiceImpl extends ServiceImpl<DishMapper, Dish> implements Di
 
     //根据分类id查询菜品
     @Override
-    public Result<List<DishVO>> selectDishVOByCategoryId(Integer categoryId) {
+    public List<DishVO> selectDishVOByCategoryId(Integer categoryId) {
         List<DishVO> dishVOS = mapper.selectDishVOByCategoryId(categoryId);
-        return Result.success(dishVOS);
+        return dishVOS;
     }
 }

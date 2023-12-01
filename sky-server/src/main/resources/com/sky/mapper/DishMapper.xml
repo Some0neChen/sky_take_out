@@ -107,7 +107,7 @@
         from dish
                  left join sky_take_out.dish_flavor df on dish.id = df.dish_id
                  left join sky_take_out.category c on c.id = dish.category_id
-        where dish.category_id = #{CategoryId}
+        where dish.category_id = #{CategoryId} and dish.status = 1
     </select>
 
 </mapper>
