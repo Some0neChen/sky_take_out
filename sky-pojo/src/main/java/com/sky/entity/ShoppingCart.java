@@ -1,9 +1,12 @@
 package com.sky.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nonapi.io.github.classgraph.json.Id;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -20,6 +23,7 @@ public class ShoppingCart implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     //名称

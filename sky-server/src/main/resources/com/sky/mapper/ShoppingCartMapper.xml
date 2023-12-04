@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sky.mapper.ShoppingCartMapper">
+
+    <select id="selectShoppingCart" resultType="com.sky.entity.ShoppingCart">
+        select * from shopping_cart
+        <where>
+            <if test="cart.setmealId != null">
+                and shopping_cart.setmeal_id = #{cart.setmealId}
+            </if>
+            <if test="cart.dishId != null">
+                and shopping_cart.dish_id = #{cart.dishId}
+            </if>
+            <if test="cart.dishFlavor != null">
+                and shopping_cart.dish_id = #{cart.dishFlavor}
+            </if>
+            <if test="cart.userId != null">
+                and shopping_cart.dish_id = #{cart.userId}
+            </if>
+        </where>
+    </select>
+</mapper>
